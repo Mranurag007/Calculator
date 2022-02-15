@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <form class="calculator" name="calc">
+            <input type="text" class="value" readonly name="txt" onkeypress="return event.charCode >= 48
+			&& event.charCode <= 57">
+            <span class="num clear" onclick="calc.txt.value=''">C</span>
+
+            <span class="num" id="m1" onclick="calc.txt.value+='/'">/</span>
+            <span class="num" onclick="calc.txt.value+='*'">*</span>
+            <span class="num" onclick="calc.txt.value=calc.txt.value.substring(0,calc.txt.value.length*1-1)">←</span>
+            <span class="num scf" onclick="calc.txt.value+='('">(</span>
+            <span class="num" onclick="calc.txt.value+='7'">7</span>
+            <span class="num" onclick="calc.txt.value+='8'">8</span>
+            <span class="num" onclick="calc.txt.value+='9'">9</span>
+            <span class="num" onclick="calc.txt.value+='-'">-</span>
+            <span class="num scf" onclick="calc.txt.value+=')'">)</span>
+            <span class="num" onclick="calc.txt.value+='4'">4</span>
+            <span class="num" onclick="calc.txt.value+='5'">5</span>
+            <span class="num" onclick="calc.txt.value+='6'">6</span>
+            <span class="num plus" onclick="calc.txt.value+='+'">+</span>
+            <span class="num scf" onclick="calc.txt.value+='Math.log('">log</span>
+            <span class="num" onclick="calc.txt.value+='1'">1</span>
+            <span class="num" onclick="calc.txt.value+='2'">2</span>
+            <span class="num" onclick="calc.txt.value+='3'">3</span>
+            <span class="num scf" onclick="calc_sqrt()">sqrt</span>
+            <span class="num scf" onclick="calc.txt.value+='Math.PI'">pi</span>
+            <span class="num" onclick="calc.txt.value+='0'">0</span>
+            <span class="num" onclick="calc.txt.value+='.'">.</span>
+            <span class="num" id="scfbtn" onclick="calc.txt.value=fun1()">!</span>
+            <span class="num scf" onclick="calc.txt.value+='**'">^</span>
+            <span class="num equal" onclick="document.calc.txt.value=eval(calc.txt.value)"><i>=</i></span>
+
+
+        </form>
+    </div>
+    <script>
+        document.addEventListener("keypress", function (event) {
+            if (event.key == 'Enter') {
+                document.calc.txt.value = eval(calc.txt.value)
+            }
+            else {
+                calc.txt.value += event.key;
+                console.log(event.key);
+            }
+        });
+        function fun1() {
+            var n = parseInt(calc.txt.value);
+            for (let index = n - 1; index >= 1; index--) {
+                n *= index;
+            }
+            return n;
+        }
+
+        function calc_sqrt() {
+            var text = document.calc.txt.value
+            document.calc.txt.value = Math.sqrt(text)
+        }
+        function fun() {
+            var a = new Audio('button-50.mp3');
+            a.play();
+        }
+
+        var n = document.querySelectorAll(".num").length;
+        for (var index = 0; index < n; index++) {
+            document.querySelectorAll(".num")[index].addEventListener("click", fun);
+           fun();
+        }
+    </script>
+</body>
+
+</html>
